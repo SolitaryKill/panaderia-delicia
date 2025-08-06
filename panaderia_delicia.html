@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panadería Delicia</title>
+  <style>
+    body { font-family: sans-serif; background: #fff8f0; padding: 20px; }
+    h1, h2 { color: #8b4513; }
+    .producto { border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 6px; }
+    img { width: 100%; max-width: 200px; height: auto; border-radius: 6px; }
+    button { background: #ffa500; color: white; border: none; padding: 6px 12px; margin-top: 5px; border-radius: 4px; cursor: pointer; }
+    button.eliminar { background: red; margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>Panadería Delicia</h1>
+
+  <h2>Productos</h2>
+  <div class="producto">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHsKrGUHCPOaHJncuVkvbcGv8yu77YtiotrTlAfuasSypgFnk_6gkynokyU6qDTdcrmubCiahejyMsEPRKPRahzemEVjuPU9Nq7hq8vr_p2t7i_BJw_UH-gs796-xDgdbuPER-8MJ055eJ/s1600/ED8EB8C1-474C-4E6B-80CD-63279C7FF9B5.jpeg">
+    <p><strong>Pan Francés</strong> - $500</p>
+    <button onclick="agregar('Pan Francés', 500)">Agregar</button>
+  </div>
+
+  <div class="producto">
+    <img src="https://www.gastroactitud.com/wp-content/uploads/2021/12/panod-1.jpeg">
+    <p><strong>Roscón</strong> - $1200</p>
+    <button onclick="agregar('Roscón', 1200)">Agregar</button>
+  </div>
+
+  <div class="producto">
+    <img src="https://letablier.co/wp-content/uploads/2020/10/croissant-web-Le-Tablier.jpg">
+    <p><strong>Croissant</strong> - $1000</p>
+    <button onclick="agregar('Croissant', 1000)">Agregar</button>
+  </div>
+
+  <h2>Carrito</h2>
+  <ul id="carrito"></ul>
+  <p>Total: $<span id="total">0</span></p>
+
+  <h2>Contacto</h2>
+  <form onsubmit="enviarPedido(event)">
+    <input type="text" placeholder="Tu nombre" required><br><br>
+    <input type="email" placeholder="Correo" required><br><br>
+    <textarea placeholder="Mensaje" required></textarea><br><br>
+    <button type="submit">Enviar Pedido</button>
+  </form>
+
+  <div id="confirmacion" style="display:none; margin-top: 20px;">
+    <h2>¡Pedido Enviado!</h2>
+    <p>Gracias por tu compra 😊</p>
+  </div>
+
+  <script>
+    let carrito = [];
+    let total = 0;
+
+    function agregar(nombre, precio) {
+      carrito.push({ nombre, precio });
+      total += precio;
+      actualizar();
+    }
+
+    function eliminar(index) {
+      total -= carrito[index].precio;
+      carrito.splice(index, 1);
+      actualizar();
+    }
+
+    function actualizar() {
+      const lista = document.getElementById("carrito");
+      lista.innerHTML = "";
+      carrito.forEach((item, i) => {
+        const li = document.createElement("li");
+        li.textContent = item.nombre + " - $" + item.precio;
+        const btn = document.createElement("button");
+        btn.textContent = "Eliminar";
+        btn.className = "eliminar";
+        btn.onclick = () => eliminar(i);
+        li.appendChild(btn);
+        lista.appendChild(li);
+      });
+      document.getElementById("total").textContent = total;
+    }
+
+    function enviarPedido(event) {
+      event.preventDefault();
+      document.querySelector("form").style.display = "none";
+      document.getElementById("confirmacion").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
