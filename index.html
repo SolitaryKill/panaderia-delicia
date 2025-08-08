@@ -1,96 +1,230 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panadería Delicia</title>
   <style>
-    body { font-family: sans-serif; background: #fff8f0; padding: 20px; }
-    h1, h2 { color: #8b4513; }
-    .producto { border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 6px; }
-    img { width: 100%; max-width: 200px; height: auto; border-radius: 6px; }
-    button { background: #ffa500; color: white; border: none; padding: 6px 12px; margin-top: 5px; border-radius: 4px; cursor: pointer; }
-    button.eliminar { background: red; margin-left: 10px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      line-height: 1.6;
+      background-color: #fff8f0;
+      color: #333;
+    }
+    header {
+      background-color: #c47f4d;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+    nav {
+      background: #e2b07f;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .hero {
+      background-image: url('https://i.postimg.cc/Y9c18Hfb/Chat-GPT-Image-7-ago-2025-02-21-51-p-m.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #eecab1;
+      height: 500px;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.5em;
+      font-weight: bold;
+      text-shadow: 3px 3px 6px #000;
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+    .hero > * {
+      position: relative;
+      z-index: 2;
+    }
+    .section {
+      display: none;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .section.active {
+      display: block;
+    }
+    .section h2 {
+      color: #c47f4d;
+      margin-bottom: 20px;
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #c47f4d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .footer {
+      background: #c47f4d;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
   </style>
+  <script>
+    function mostrarSeccion(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      mostrarSeccion('menu'); // Mostrar una por defecto
+      document.querySelectorAll('nav a').forEach(enlace => {
+        enlace.addEventListener('click', e => {
+          e.preventDefault();
+          const id = enlace.getAttribute('href').substring(1);
+          mostrarSeccion(id);
+        });
+      });
+    });
+  </script>
 </head>
 <body>
-
-  <h1>Panadería Delicia</h1>
-
-  <h2>Productos</h2>
-  <div class="producto">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHsKrGUHCPOaHJncuVkvbcGv8yu77YtiotrTlAfuasSypgFnk_6gkynokyU6qDTdcrmubCiahejyMsEPRKPRahzemEVjuPU9Nq7hq8vr_p2t7i_BJw_UH-gs796-xDgdbuPER-8MJ055eJ/s1600/ED8EB8C1-474C-4E6B-80CD-63279C7FF9B5.jpeg">
-    <p><strong>Pan Francés</strong> - $500</p>
-    <button onclick="agregar('Pan Francés', 500)">Agregar</button>
+  <header>
+    <h1>Panadería Las Delicia</h1>
+  </header>
+  <nav>
+    <a href="#menu">Menú</a>
+    <a href="#nosotros">Sobre Nosotros</a>
+    <a href="#pedidos">Pedidos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <div class="hero" id="inicio">
+    ¡Disfruta del sabor recién horneado!
   </div>
 
-  <div class="producto">
-    <img src="https://www.gastroactitud.com/wp-content/uploads/2021/12/panod-1.jpeg">
-    <p><strong>Roscón</strong> - $1200</p>
-    <button onclick="agregar('Roscón', 1200)">Agregar</button>
-  </div>
+  <section class="section" id="menu">
+    <h2>Menú</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://i.postimg.cc/26L1Q5S9/masa-madre-de-levadura-de-pan-amargo-alimentos.jpg" alt="Pan artesanal">
+        <h3>Pan artesanal</h3>
+        <p>Crujiente por fuera, suave por dentro. $3.000</p>
+      </div>
+      <div class="card">
+        <img src="https://thumbs.dreamstime.com/z/rebanada-de-pastel-chocolate-sobre-fondo-blanco-la-imagen-representa-una-colocada-un-del-es-rico-color-marr%C3%B3n-oscuro-con-capas-277054311.jpg?ct=jpeg" alt="Pastel de chocolate">
+        <h3>Pastel de chocolate</h3>
+        <p>Con cobertura espesa y relleno dulce. $5.000</p>
+      </div>
+      <div class="card">
+        <img src="https://exitocol.vtexassets.com/arquivos/ids/28878010/Arepas-Rellena-Con-Queso-Light-SARY-380-gr-3034402_c.jpg?v=638857869579130000" alt="Arepas de queso">
+        <h3>Arepas de queso</h3>
+        <p>Tradicionales y frescas. $2.500</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="producto">
-    <img src="https://letablier.co/wp-content/uploads/2020/10/croissant-web-Le-Tablier.jpg">
-    <p><strong>Croissant</strong> - $1000</p>
-    <button onclick="agregar('Croissant', 1000)">Agregar</button>
-  </div>
+  <section class="section" id="nosotros">
+    <h2>Sobre Nosotros</h2>
+    <p>Somos una panadería apasionada por lo artesanal y el sabor casero. Utilizamos ingredientes frescos y de alta calidad para ofrecerte lo mejor.</p>
+  </section>
 
-  <h2>Carrito</h2>
-  <ul id="carrito"></ul>
-  <p>Total: $<span id="total">0</span></p>
+  <section class="section" id="pedidos">
+    <h2>Haz tu pedido</h2>
+    <form>
+      <label for="producto">Producto</label>
+      <select id="producto" name="producto">
+        <option value="pan">Pan artesanal</option>
+        <option value="pastel">Pastel de chocolate</option>
+        <option value="arepa">Arepas de queso</option>
+      </select>
 
-  <h2>Contacto</h2>
-  <form onsubmit="enviarPedido(event)">
-    <input type="text" placeholder="Tu nombre" required><br><br>
-    <input type="email" placeholder="Correo" required><br><br>
-    <textarea placeholder="Mensaje" required></textarea><br><br>
-    <button type="submit">Enviar Pedido</button>
-  </form>
+      <label for="cantidad">Cantidad</label>
+      <input type="number" id="cantidad" name="cantidad" min="1" value="1">
 
-  <div id="confirmacion" style="display:none; margin-top: 20px;">
-    <h2>¡Pedido Enviado!</h2>
-    <p>Gracias por tu compra 😊</p>
-  </div>
+      <label for="nombre">Tu nombre</label>
+      <input type="text" id="nombre" name="nombre" required>
 
-  <script>
-    let carrito = [];
-    let total = 0;
+      <label for="direccion">Dirección de entrega</label>
+      <textarea id="direccion" name="direccion" rows="3" required></textarea>
 
-    function agregar(nombre, precio) {
-      carrito.push({ nombre, precio });
-      total += precio;
-      actualizar();
-    }
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" name="telefono" required>
 
-    function eliminar(index) {
-      total -= carrito[index].precio;
-      carrito.splice(index, 1);
-      actualizar();
-    }
+      <button type="submit">Enviar pedido</button>
+    </form>
+  </section>
 
-    function actualizar() {
-      const lista = document.getElementById("carrito");
-      lista.innerHTML = "";
-      carrito.forEach((item, i) => {
-        const li = document.createElement("li");
-        li.textContent = item.nombre + " - $" + item.precio;
-        const btn = document.createElement("button");
-        btn.textContent = "Eliminar";
-        btn.className = "eliminar";
-        btn.onclick = () => eliminar(i);
-        li.appendChild(btn);
-        lista.appendChild(li);
-      });
-      document.getElementById("total").textContent = total;
-    }
+  <section class="section" id="contacto">
+    <h2>Contacto</h2>
+    <p>📍 Calle Panadería #123, Ciudad Delicia</p>
+    <p>📞 +57 123 456 7890</p>
+    <p>📧 contacto@panaderiadelicia.com</p>
+  </section>
 
-    function enviarPedido(event) {
-      event.preventDefault();
-      document.querySelector("form").style.display = "none";
-      document.getElementById("confirmacion").style.display = "block";
-    }
-  </script>
-
+  <footer class="footer">
+    <p>&copy; 2025 Panadería Delicia - Todos los derechos reservados</p>
+  </footer>
 </body>
 </html>
